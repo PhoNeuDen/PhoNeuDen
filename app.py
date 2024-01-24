@@ -691,7 +691,7 @@ with tab4:
         fig, ax = plt.subplots()
 
         cbar=las_df['DEPT']
-        ax.scatter(x_curve,y_curve,c=cbar,cmap='jet', alpha=0.5)
+        ax.scatter(x_curve,y_curve,c=cbar, alpha=0.5)
         ax.set_title("ND Crossplot")
         ax.set_xlabel("Neutron Porosity [v.v]")
         ax.set_ylabel("Density g/cc")

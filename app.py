@@ -718,7 +718,7 @@ with tab4:
         pdf.add_page()
         with NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
           fig.savefig(tmpfile.name)
-          pdf.image(tmpfile.name, 10, 10, (plot_w*16), (plot_h*16))
+          pdf.image(tmpfile.name, 10, 10, (plot_w*20), (plot_h*16))
         st.download_button(
           "Download 2D Cross Plot as PDF",
           data=pdf.output(dest='S').encode('latin-1'),

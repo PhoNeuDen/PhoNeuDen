@@ -676,18 +676,63 @@ with tab4:
                       color = z_curve, range_x=[scale_x_left, scale_x_right], range_y = [scale_y_bottom, scale_y_upper],
                       color_continuous_scale=px.colors.sequential.Jet)
         st.plotly_chart(fig)
-        #   @st.cache
+        #exporting as pdf
         pdf = FPDF()
         pdf.add_page()
         with NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
-          fig.write_image(tmpfile.name)
-          pdf.image(tmpfile.name, 10, 10, (plot_w*16), (plot_h*8))
+          fig.savefig(tmpfile.name)
+          pdf.image(tmpfile.name, 10, 10, (plot_w*16), (plot_h*16))
         st.download_button(
-          "Download Scatter Plot as PDF",
+          "Download 2D Cross Plot as PDF",
           data=pdf.output(dest='S').encode('latin-1'),
-          file_name=f"{well_name}_Crossplot_{x_curve}_{y_curve}_{z_curve}.pdf",
-          )
- 
+          file_name=f"{well_name}_2D_Cross_Plot.pdf",
+
+        x = las_df['NPHI']
+        y = las_df['RHOB']
+
+        lsX = np.linspace(0,0.45,46)
+        ssCnlX = np.empty((np.size(lsX),0), float)
+        dolCnlX = np.empty((np.size(lsX),0), float)
+
+        for n in np.nditer(lsX):
+
+            ssCnlX = np.append(ssCnlX, np.roots([0.222, 1.021, 0.039 - n])[1])
+            dolCnlX = np.append(dolCnlX, np.roots([1.40, 0.389, -0.01259 - n])[1])
+        denLs = (1 - 2.71) * lsX + 2.71
+        denSs = (1 - 2.65) * lsX + 2.65  
+        denDol = (1 - 2.87) * lsX + 2.87    
+        fig, ax = plt.subplots()
+
+        cbar=las_df['DEPT']
+        ax.scatter(x,y,c=cbar,cmap='jet', alpha=0.5)
+        ax.set_title("ND Crossplot")
+        ax.set_xlabel("Neutron Porosity [v.v]")
+        ax.set_ylabel("Density g/cc")
+        ax.set_xlim(-0.15,0.45)
+        ax.set_ylim(3,1.9)
+        ax.grid(True)
+        ax.plot(ssCnlX, denSs, '.-', color='blue', label = 'Sandstone')
+        ax.plot(lsX, denLs, '.-', color='black', label = 'Limestone')
+        ax.plot(dolCnlX, denDol, '.-', color='red', label = 'Dolomite')
+        ax.legend(loc='best')
+        fig.subplots_adjust(wspace = 0.6)
+        fig.subplots_adjust(hspace = 0.8)
+
+        plt.tight_layout()
+        plt.show() 
+        st.pyplot(fig)
+
+        #exporting as pdf
+        pdf = FPDF()
+        pdf.add_page()
+        with NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
+          fig.savefig(tmpfile.name)
+          pdf.image(tmpfile.name, 10, 10, (plot_w*16), (plot_h*16))
+        st.download_button(
+          "Download 2D Cross Plot as PDF",
+          data=pdf.output(dest='S').encode('latin-1'),
+          file_name=f"{well_name}_2D_Cross_Plot.pdf",
+        )
       if demi3:
         from mpl_toolkits.mplot3d import Axes3D
         cbar = (las_df[z_curve])

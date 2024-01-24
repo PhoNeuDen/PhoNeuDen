@@ -666,6 +666,7 @@ with tab4:
       st.markdown("<h3 style='text-align: justify; text-size: 16px;'> Choose a Dimension for Cross Plot", unsafe_allow_html=True)
 
       demi2 = st.button('2D Cross Plot')
+      demi21 = st.button('2D Cross Plot')
       demi3 = st.button('3D Cross Plot')
       if demi2:
 
@@ -686,16 +687,9 @@ with tab4:
           data=pdf.output(dest='S').encode('latin-1'),
           file_name=f"{well_name}_Crossplot_{x_curve}_{y_curve}_{z_curve}.pdf",
           )
-
+      if demi21:
         x = las_df['NPHI']
         y = las_df['RHOB']
-
-        # fit a linear curve and estimate its y-values and their error.
-        #a, b = np.polyfit(x, y, deg=1)
-        #y_est = a * x + b
-        #y_err = x.std() * np.sqrt(1/len(x) +
-                                  #(x - x.mean())**2 / np.sum((x - x.mean())**2))
-
 
         lsX = np.linspace(0,0.45,46)
         ssCnlX = np.empty((np.size(lsX),0), float)

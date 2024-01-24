@@ -676,17 +676,6 @@ with tab4:
                       color = z_curve, range_x=[scale_x_left, scale_x_right], range_y = [scale_y_bottom, scale_y_upper],
                       color_continuous_scale=px.colors.sequential.Jet)
         st.plotly_chart(fig)
-        #exporting as pdf
-        pdf = FPDF()
-        pdf.add_page()
-        with NamedTemporaryFile(delete=False, suffix=".png") as tmpfile:
-          fig.savefig(tmpfile.name)
-          pdf.image(tmpfile.name, 10, 10, (plot_w*16), (plot_h*16))
-        st.download_button(
-          "Download 2D Cross Plot as PDF",
-          data=pdf.output(dest='S').encode('latin-1'),
-          file_name=f"{well_name}_2D_Cross_Plot.pdf",)
-
 
         lsX = np.linspace(0,0.45,46)
         ssCnlX = np.empty((np.size(lsX),0), float)

@@ -687,8 +687,6 @@ with tab4:
           data=pdf.output(dest='S').encode('latin-1'),
           file_name=f"{well_name}_2D_Cross_Plot.pdf",
 
-        x = las_df['NPHI']
-        y = las_df['RHOB']
 
         lsX = np.linspace(0,0.45,46)
         ssCnlX = np.empty((np.size(lsX),0), float)
@@ -704,7 +702,7 @@ with tab4:
         fig, ax = plt.subplots()
 
         cbar=las_df['DEPT']
-        ax.scatter(x,y,c=cbar,cmap='jet', alpha=0.5)
+        ax.scatter(las_df['NPHI'],las_df['RHOB'],c=cbar,cmap='jet', alpha=0.5)
         ax.set_title("ND Crossplot")
         ax.set_xlabel("Neutron Porosity [v.v]")
         ax.set_ylabel("Density g/cc")

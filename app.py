@@ -685,7 +685,7 @@ with tab4:
         st.download_button(
           "Download 2D Cross Plot as PDF",
           data=pdf.output(dest='S').encode('latin-1'),
-          file_name=f"{well_name}_2D_Cross_Plot.pdf",
+          file_name=f"{well_name}_2D_Cross_Plot.pdf",)
 
 
         lsX = np.linspace(0,0.45,46)
@@ -702,12 +702,12 @@ with tab4:
         fig, ax = plt.subplots()
 
         cbar=las_df['DEPT']
-        ax.scatter(las_df['NPHI'],las_df['RHOB'],c=cbar,cmap='jet', alpha=0.5)
+        ax.scatter(x_curve,y_curve,c=cbar,cmap='jet', alpha=0.5)
         ax.set_title("ND Crossplot")
         ax.set_xlabel("Neutron Porosity [v.v]")
         ax.set_ylabel("Density g/cc")
-        ax.set_xlim(-0.15,0.45)
-        ax.set_ylim(3,1.9)
+        ax.set_xlim(scale_x_left, scale_x_right)
+        ax.set_ylim(scale_y_bottom, scale_y_upper)
         ax.grid(True)
         ax.plot(ssCnlX, denSs, '.-', color='blue', label = 'Sandstone')
         ax.plot(lsX, denLs, '.-', color='black', label = 'Limestone')

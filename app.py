@@ -38,7 +38,7 @@ tab1, tab2 , tab3 , tab4 = st.tabs(['THE PROJECT', 'ABOUT THE AUTHORS', 'INTRODU
 
 with tab1:
   st.write()
-  st.markdown("<h2 style='text-align: center; color: whitegrey; font-size: 30px'> ANG GANDA NI ROME", unsafe_allow_html=True)
+  st.markdown("<h2 style='text-align: center; color: whitegrey; font-size: 30px'> Development of Python-based Web Application Program for the Visualization and Interpretation of Neutron-Density Well Logs for Lithology Determination", unsafe_allow_html=True)
   st.write('---')
 with tab2: 
   st.text('Batangas State University "The National Engineering University" \n  Bachelor of Science in Petroleum Engineering \n\n created by: \n Carlvin C. Manjares \n Andre Lorenzo A. Añonuevo \n Rome Erwin M. Festin')

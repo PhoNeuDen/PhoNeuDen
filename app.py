@@ -686,11 +686,17 @@ with tab4:
           data=pdf.output(dest='S').encode('latin-1'),
           file_name=f"{well_name}_Crossplot_{x_curve}_{y_curve}_{z_curve}.pdf",
           )
-        
-        fig, ax =plt.subplots(nrows=1, ncols=1, figsize=(plot_w,plot_h), sharey=True) #plt.subplots(figsize=(10,10), sharex=True, sharey=True)
-        for axes in ax:
-          axes.get_xaxis().set_visible(False)
-        ax1 = plt.subplot2grid((1,1), (0,0), rowspan=2, colspan = 2)
+
+        x = las_df['NPHI']
+        y = las_df['RHOB']
+
+        # fit a linear curve and estimate its y-values and their error.
+        #a, b = np.polyfit(x, y, deg=1)
+        #y_est = a * x + b
+        #y_err = x.std() * np.sqrt(1/len(x) +
+                                  #(x - x.mean())**2 / np.sum((x - x.mean())**2))
+
+
         lsX = np.linspace(0,0.45,46)
         ssCnlX = np.empty((np.size(lsX),0), float)
         dolCnlX = np.empty((np.size(lsX),0), float)
@@ -699,27 +705,23 @@ with tab4:
 
             ssCnlX = np.append(ssCnlX, np.roots([0.222, 1.021, 0.039 - n])[1])
             dolCnlX = np.append(dolCnlX, np.roots([1.40, 0.389, -0.01259 - n])[1])
-
-
         denLs = (1 - 2.71) * lsX + 2.71
         denSs = (1 - 2.65) * lsX + 2.65  
-        denDol = (1 - 2.87) * lsX + 2.87
-        cbar = (las_df[z_curve])
-        ax1.scatter(las_df['NPHI'],las_df['RHOB'],c=cbar,cmap='jet', alpha=0.9)
-        #Settings for second chart (Neutron Density)
-        ax1.set_title("ND Crossplot")
-        ax1.set_xlabel("Neutron Porosity [v.v]")
-        ax1.set_ylabel("Density g/cc")
-        ax1.set_xlim(-0.15,0.45)
-        ax1.set_ylim(3,1.9)
-        ax1.plot(ssCnlX, denSs, '.-', color='blue', label = 'Sandstone')
-        ax1.plot(lsX, denLs, '.-', color='black', label = 'Limestone')
-        ax1.plot(dolCnlX, denDol, '.-', color='red', label = 'Dolomite')
+        denDol = (1 - 2.87) * lsX + 2.87    
+        fig, ax = plt.subplots()
 
-
-        ax1.legend(loc='best')
-        ax1.grid(True)
-
+        cbar=las_df['DEPT']
+        ax.scatter(x,y,c=cbar,cmap='jet', alpha=0.5)
+        ax.set_title("ND Crossplot")
+        ax.set_xlabel("Neutron Porosity [v.v]")
+        ax.set_ylabel("Density g/cc")
+        ax.set_xlim(-0.15,0.45)
+        ax.set_ylim(3,1.9)
+        ax.grid(True)
+        ax.plot(ssCnlX, denSs, '.-', color='blue', label = 'Sandstone')
+        ax.plot(lsX, denLs, '.-', color='black', label = 'Limestone')
+        ax.plot(dolCnlX, denDol, '.-', color='red', label = 'Dolomite')
+        ax.legend(loc='best')
         fig.subplots_adjust(wspace = 0.6)
         fig.subplots_adjust(hspace = 0.8)
 

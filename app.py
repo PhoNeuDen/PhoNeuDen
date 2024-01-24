@@ -695,11 +695,11 @@ with tab4:
         y = las_df['RHOB']
         cbar=las_df['DEPT']
         ax1 = plt.subplot2grid((1,1), (0,0), rowspan=2, colspan = 2)
-        ax1.scatter(x,y,c='r', alpha=0.5)
+        ax1.scatter(x,y,c=cbar,cmap='jet', alpha=0.5)
         ax1.set_title("ND Crossplot")
         ax1.set_xlabel("Neutron Porosity [v.v]")
         ax1.set_ylabel("Density g/cc")
-        ax1.set_xlim(-0.15, 0.45)
+        ax1.set_xlim(-0.15, 0.5)
         ax1.set_ylim(3, 1.6)
         ax1.grid(True)
         ax1.plot(ssCnlX, denSs, '.-', color='blue', label = 'Sandstone')

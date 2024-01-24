@@ -676,7 +676,9 @@ with tab4:
                       color = z_curve, range_x=[scale_x_left, scale_x_right], range_y = [scale_y_bottom, scale_y_upper],
                       color_continuous_scale=px.colors.sequential.Jet)
         st.plotly_chart(fig)
+        fig, axes = plt.subplots(figsize=(10,10), sharex=True, sharey=True)
 
+        ax1 = plt.subplot2grid((1,1), (0,0), rowspan=2, colspan = 2)
         lsX = np.linspace(0,0.45,46)
         ssCnlX = np.empty((np.size(lsX),0), float)
         dolCnlX = np.empty((np.size(lsX),0), float)
@@ -689,19 +691,20 @@ with tab4:
         denSs = (1 - 2.65) * lsX + 2.65  
         denDol = (1 - 2.87) * lsX + 2.87    
         fig, ax = plt.subplots()
-
+        x = las_df['NPHI']
+        y = las_df['RHOB']
         cbar=las_df['DEPT']
-        ax.scatter(x_curve,y_curve,c='r', alpha=0.5)
-        ax.set_title("ND Crossplot")
-        ax.set_xlabel("Neutron Porosity [v.v]")
-        ax.set_ylabel("Density g/cc")
-        ax.set_xlim(-0.15, 0.45)
-        ax.set_ylim(3, 1.6)
-        ax.grid(True)
-        ax.plot(ssCnlX, denSs, '.-', color='blue', label = 'Sandstone')
-        ax.plot(lsX, denLs, '.-', color='black', label = 'Limestone')
-        ax.plot(dolCnlX, denDol, '.-', color='red', label = 'Dolomite')
-        ax.legend(loc='best')
+        ax1.scatter(x,y,c='r', alpha=0.5)
+        ax1.set_title("ND Crossplot")
+        ax1.set_xlabel("Neutron Porosity [v.v]")
+        ax1.set_ylabel("Density g/cc")
+        ax1.set_xlim(-0.15, 0.45)
+        ax1.set_ylim(3, 1.6)
+        ax1.grid(True)
+        ax1.plot(ssCnlX, denSs, '.-', color='blue', label = 'Sandstone')
+        ax1.plot(lsX, denLs, '.-', color='black', label = 'Limestone')
+        ax1.plot(dolCnlX, denDol, '.-', color='red', label = 'Dolomite')
+        ax1.legend(loc='best')
         fig.subplots_adjust(wspace = 0.6)
         fig.subplots_adjust(hspace = 0.8)
 

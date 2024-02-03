@@ -488,8 +488,8 @@ with tab4:
         y = [0, 1]
         x = [1, 1]
 
-        fig, axes = plt.subplots(ncols=1,nrows=6, sharex=True, sharey=True,
-                                figsize=(10,5), subplot_kw={'xticks': [], 'yticks': []})
+        fig, axes = plt.subplots(ncols=3,nrows=2, sharex=True, sharey=True,
+                                figsize=(10,2), subplot_kw={'xticks': [], 'yticks': []})
 
         for ax, key in zip(axes.flat, lithology_numbers.keys()):
             ax.plot(x, y)

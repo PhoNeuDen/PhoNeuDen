@@ -587,7 +587,7 @@ with tab4:
         ax3.spines["top"].set_visible(True)
         ax3.spines["top"].set_edgecolor('black')
         ax3.set_xticks(list(np.linspace(1, 0, num = 2)))
-        ax3.fill_betweenx(well_df['DEPT'], shale, 0, interpolate=False, color = '#bebebe', linewidth=0.8, alpha=0.8, hatch = '--')
+        ax3.fill_betweenx(well_df['DEPT'], shale, 0, interpolate=False, facecolor = '#bebebe', linewidth=0.8, alpha=0.8, hatch = '--')
 
         ax4.plot(sandstone, "DEPT", data = well_df, lw=0.8)
         ax4.set_xlim(1, 0)

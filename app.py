@@ -517,7 +517,7 @@ with tab4:
         
         ax4 = ax1.twiny()
         ax4.xaxis.set_visible(False)
-        ax.4 = ax2.twiny()
+        ax4 = ax2.twiny()
         ax4.xaxis.set_visible(False)
         ax4 = ax3.twiny()
         ax4.xaxis.set_visible(False)

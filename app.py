@@ -516,6 +516,7 @@ with tab4:
         ax3 = plt.subplot2grid((1,3), (0,2), rowspan=2, colspan = 1)
         
         ax4 = ax1.twiny()
+        ax2.xaxis.set_visible(True)
         ax4.xaxis.set_visible(False)
         ax4 = ax3.twiny()
         ax4.xaxis.set_visible(False)

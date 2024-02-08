@@ -194,6 +194,7 @@ with tab4:
       #-------------Formation Evaluation settings---------------------------------------------------------
       st.sidebar.write('---')
       st.sidebar.title('Formation Evaluation Settings')
+      
       denmat = st.sidebar.number_input('Matrix-Density', min_value=1.0, value=2.71, step=0.1)
       denfl = st.sidebar.number_input('Fluid-Density', min_value=0.0, value=1.0, max_value=1.5, step=0.1)
       dphi = (denmat - den_log)/(denmat-denfl)
@@ -202,15 +203,15 @@ with tab4:
       dphi_shale = np.clip(dphi_shale, 0, 1)
       neu_shale = st.sidebar.number_input('Neutron at 100% Shale', min_value=0.0, value=0.35, step=0.1)
       neu_mean = neu_log.mean()
+      
+      #-------------Volume of Shle settings ------------------------------------------------------------
       vsh_log = (neu_log - dphi)/(neu_shale-dphi_shale) *100
       vsh_log = np.clip(vsh_log, 0, 100)
       vsh_color = 'black'
       well_df['VSH'] = vsh_log
       shale_shading = st.sidebar.radio('Shale Shading',['Gray','Green'])
-      
-
       vsh_trackname = f'Volume of shale (%)'
-      #-------------Formation Evaluation settings end----------------------------------------------------
+      #-------------Volume of Shle settings End------------------------------------------------------------
       
       #-------------sidebar-porosity settings------------------------------------------------------------
       st.sidebar.title('Porosity')
@@ -279,6 +280,7 @@ with tab4:
       anhydrite = np.where(( 4.80<=pe_log) & (pe_log <=5.15 ) & (2.91<=den_log) & (den_log<= 2.99), 1, 0)
       halite = np.where(( 3.8<=pe_log) & (pe_log <=4.7 ) & (1.90<=den_log) & (den_log<= 2.19), 1, 0)
       oil = np.where(( 0.8<=pe_log) & (pe_log <=0.15 ) & (0.4<=den_log) & (den_log<= 0.12), 1, 0)
+      #-------------Formation Evaluation settings end----------------------------------------------------
 #-------------Scatter Plot settings-----------------------------------------------------------------
       st.sidebar.write('---')
       st.sidebar.title('Scatter Plot')
@@ -309,7 +311,7 @@ with tab4:
       scale_z_right = st.sidebar.number_input ('Bottom Scale Z-axis', value = well_df[z_curve].max())
       st.write('---')
       #-------------Scatter Plot settings end-------------------------------------------------------------
-   #=========================================================
+      #=========================================================
       st.markdown("<h1 style='text-align: center; text-size: 16px;'> CHOOSE A PLOT", unsafe_allow_html=True)
 
       st.write('---')
